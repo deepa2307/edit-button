@@ -41,7 +41,7 @@
         }
 
         function showUserOnHome(user) {
-            axios.get("https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data")
+            axios.get("https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data", user)
                 .then((res) => {
                     console.log(response)
 
@@ -66,18 +66,25 @@
             editBtn.value = 'Edit';
 
             editBtn.onclick = () => {
-                let storedUser = JSON.parse(localStorage.getItem(user.email));
-                // Assuming you have input fields with IDs 'name', 'email', and 'mobile'
-                document.getElementById('username').value = storedUser.name;
-                document.getElementById('emailid').value = storedUser.email;
-                document.getElementById('phonenumber').value = storedUser.mobile;
+                axios.delete("https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data", user)
+                    .then((response) => {
+                        removeUserFromScreen(user)
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                // let storedUser = JSON.parse(localStorage.getItem(user.email));
+                // // Assuming you have input fields with IDs 'name', 'email', and 'mobile'
+                // document.getElementById('username').value = storedUser.name;
+                // document.getElementById('emailid').value = storedUser.email;
+                // document.getElementById('phonenumber').value = storedUser.mobile;
 
-                localStorage.removeItem(user.email);
-                parentEle.removeChild(childEle);
+                // localStorage.removeItem(user.email);
+                // parentEle.removeChild(childEle);
             };
 
             deleteBtn.onclick = () => {
-                axios.delete(`"https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data/$(user)"`)
+                axios.delete("https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data", user)
                     .then((response) => {
                         removeUserFromScreen(user)
                     })
