@@ -77,14 +77,22 @@
             };
 
             deleteBtn.onclick = () => {
-                localStorage.removeItem(user.email);
-                parentEle.removeChild(childEle);
+                axios.delete(`"https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data/$(user)"`)
+                    .then((response) => {
+                        removeUserFromScreen(user)
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                // localStorage.removeItem(user.email);
+                // parentEle.removeChild(childEle);
             };
 
             childEle.appendChild(editBtn);
             childEle.appendChild(deleteBtn);
             parentEle.appendChild(childEle);
         }
+
     </script>
 </body>
 
