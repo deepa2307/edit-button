@@ -26,15 +26,36 @@
                 email: email,
                 mobile: mobile
             };
-            localStorage.setItem(user.email, JSON.stringify(user));
-            showUserOnHome(user);
+            axios.post("https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data", user)
+                .then((response) => {
+                    showUserOnHome(response.data);
+                    console.log(response)
+                })
+                .catch((err) => {
+                    console.log(console.error())
+                })
+
+
+            // localStorage.setItem(user.email, JSON.stringify(user));
+
         }
 
         function showUserOnHome(user) {
-            let parentEle = document.getElementById('listOfUsers');
-            let childEle = document.createElement('li');
-            childEle.id = 'addedUser';
-            childEle.innerText = `${user.name} - ${user.email} - ${user.mobile}`;
+            axios.get("https://crudcrud.com/api/304ed911687d4f56b36a1784a0c7db17/data")
+                .then((res) => {
+                    console.log(response)
+
+                    for (let i = 0; i < response.data.lenght; i++) {
+                        showUserOnHome(response.data[i])
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            // let parentEle = document.getElementById('listOfUsers');
+            // let childEle = document.createElement('li');
+            // childEle.id = 'addedUser';
+            // childEle.innerText = `${user.name} - ${user.email} - ${user.mobile}`;
 
             let deleteBtn = document.createElement('input');
             deleteBtn.type = 'button';
